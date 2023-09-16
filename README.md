@@ -16,8 +16,8 @@ Links para instalação e configuração de Docker:
 - Faça um clone do projeto para sua máquina local
 - Crie um arquivo `.env`, recomendamos usar `.env-example` como base
 - Adicione ou altere as chaves conforme sua necessidade
-- acesse a pasta do projeto via console (terminal/PowerShell/CMD)
-- execute o comando:
+- Acesse a pasta do projeto via console (terminal/PowerShell/CMD)
+- Execute o comando:
 ```shell
 docker run --rm \
     -u "$(id -u):$(id -g)" \
@@ -26,9 +26,22 @@ docker run --rm \
     laravelsail/php82-composer:latest \
     composer install --ignore-platform-reqs
  ```
-- Após finalizado processamento, execute o comando `./sail up -d`
+- Após finalizado o processamento, execute o comando: 
+```shell
+./vendor/bin/sail up -d
+```
+- Abra o navegador, acesse http://localhost e clique no botão para gerar uma app key
+- Acesse a pasta do projeto em outro console e execute o comando:
+```shell
+./vendor/bin/sail npm install
+ ```
+- Após a instalação, execute o comando:
+```shell
+./vendor/bin/sail npm run dev
+ ```
+- Agora volte ao navegador e atualize a página
 
-O primeiro comando realiza a instalação dos pacotes via composer especificados no arquivo `composer.json` e uma vez que a instalação termina, a pasta *vendor* passa a ficar disponível no projeto. O comando seguinte levanta os contêineres baseado na descrição de serviços feita no arquivo `docker-compose.yml`.
+O primeiro comando realiza a instalação dos pacotes via composer especificados no arquivo `composer.json` e uma vez que a instalação termina, a pasta *vendor* passa a ficar disponível no projeto. O comando seguinte comando levanta os contêineres baseado na descrição de serviços feita no arquivo `docker-compose.yml`. O terceiro comando instala os módulos javascript necessários para rodar a aplicação.  inicia o servidor . E o último inicia o servidor que roda o vite.
 
 Por padrão, não é necessária nenhuma configuração no arquivo *.env* do projeto. Caso seja necessária alguma edição na configuração padrão (relacionado a binding ports ou credenciais de banco de dados), basta editar o arquivo *.env*.
 
