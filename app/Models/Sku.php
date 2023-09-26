@@ -20,11 +20,20 @@ class Sku extends Model
 
     public function orders(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class)->using(OrderSku::class);
+        return $this->belongsToMany(Order::class)
+                        ->using(OrderSku::class)
+                        ->withPivot('product', 'quantity', 'unitary_price');
     }
 
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function features(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature::class)
+                        ->using(FeatureSku::class)
+                        ->withPivot('value');
     }
 }

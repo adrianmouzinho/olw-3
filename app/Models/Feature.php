@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,8 +17,10 @@ class Feature extends Model
         'unit'
     ];
 
-    public function skus(): HasMany
+    public function skus(): BelongsToMany
     {
-        return $this->hasMany(Sku::class);
+        return $this->belongsToMany(Sku::class)
+                        ->using(FeatureSku::class)
+                        ->withPivot('value');
     }
 }
